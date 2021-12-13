@@ -1,0 +1,15 @@
+.loginStyle {
+    padding: 20;
+    margin: 20px auto;
+    height: 60vh;
+    width: 30%;
+  }
+
+@media only screen and (max-width : 1280px  ) {
+  .loginStyle {
+    padding: 20;
+    margin: 20px auto;
+    height: 70vh;
+    width: 30%;
+  }
+}

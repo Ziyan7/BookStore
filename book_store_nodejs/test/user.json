@@ -1,0 +1,46 @@
+{
+     "invalidEmailId" : {
+        "email": "abdulziy@gmail.com", 
+        "password": "@ziyan1234"
+      },
+
+      "invalidPassword" : {
+        "email": "abdulziyan07@gmail.com", 
+        "password": "@ziyan1234567"
+      },
+
+      "userCredentials" : {
+        "email": "abdulziyan07@gmail.com", 
+        "password": "@ziyan1234"
+      },
+
+      "registerUser"  :{
+        "firstName": "Testing",
+        "lastName": "Testing",
+        "email": "testing1@gmail.com",
+        "password":"@testing1234"   
+      },
+
+      "validUserId" : {
+        "userId": "61aee9ee6cd587303caaf5a1"
+      },
+
+      "invalidId" : {
+        "userId": "617f91b9571deb79bdb2e123"
+      },
+
+      "invalidUpdate"  :{
+        "firstName": "",
+        "lastName": "Testing",
+        "email": "testing@gmail.com",
+        "password":"@testing1234" 
+      }
+      ,
+      "validUpdate"  :{
+        "firstName": "Testing",
+        "lastName": "Testing",
+        "email": "testing12345@gmail.com",
+        "password":"@testing1234" 
+    }
+}
+ 

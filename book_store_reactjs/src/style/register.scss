@@ -1,0 +1,10 @@
+@mixin register {
+    padding: 20;
+    margin: 20px auto;
+    height: 70vh;
+    width: 45%;
+}
+
+.paperStyle {
+ @include register
+  }
