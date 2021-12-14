@@ -27,12 +27,18 @@ export const setCartBooks = (books) => {
   };
 };
 
-export const setUpdate = (note) => {
+export const setUpdate = (book) => {
   return {
-      type: ActionTypes.SET_UPDATE_NOTE,
-      data: note,
+      type: ActionTypes.SET_UPDATE_BOOK,
+      data: book,
   };
 };
 
+export const deleteCartItem = (book) => {
+  return {
+      type: ActionTypes.SET_DELETE_BOOK,
+      data: book,
+    };
+};
 
 

@@ -7,7 +7,10 @@
  const {
     createNewCart ,
     findAllBooks,
-    updateByBookId
+    updateByBookId ,
+    deleteCartItem ,
+    addCustomerDetails , 
+    findCustomerDetails
   } = require("../service/cart.service");
   const logger = require("../../logger/logger");
   
@@ -100,3 +103,88 @@ exports.findAll = (req, res) => {
     });
 };
 
+/**
+ * @description Delete a cart book ussing specified bookId 
+ * @param {Object} req
+ * @param {Object} res
+ */
+ exports.delete = (req, res) => {
+  var id = req.params.bookId;
+  UserId = req.body.UserId;
+  const deleteById = deleteCartItem(id,UserId);
+  deleteById
+    .then((book) => {
+      if (!book) {
+        return res.status(404).send({
+          message: "Book not found with id " + req.params.bookId,
+        });
+      }
+      logger.info("Removed book successfully")
+      res.send({ message: "Removed book successfully!",book :book });
+    })
+    .catch((err) => {
+      logger.error("book deletion Unsuccessful");
+      if (err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Book not found with id " + req.params.bookId,
+        });
+      }
+      return res.status(500).send({
+        message: "Could not delete note with id " + req.params.bookId,
+      });
+    });
+};
+
+  /**
+   * @description Handles the request and response for adding customer details 
+   * @param {Object} req
+   * @param {Object} res
+   */
+   exports.addDetails = (req, res) => {
+    let customerDetails = {
+      UserId: req.body.UserId,
+      name: req.body.name,
+      phoneNumber: req.body.phoneNumber,
+      pincode : req.body.pincode,
+      locality: req.body.locality,
+      address: req.body.address,
+      city: req.body.city,
+      landmark: req.body.landmark,
+      type: req.body.type,
+    };
+    var newDetails = addCustomerDetails(customerDetails);
+    newDetails
+      .then((result) => {
+        logger.info("Added details successfully")
+        res.status(200).json({
+          message: "Added details successfully",
+          details : result
+        });
+      })
+      .catch((error) => {
+        logger.error("Error while adding details ",error)
+        res.status(500).send({
+          message: error.message ,
+        });
+      });
+  };
+
+  
+  /**
+ * @description Retrieve and return all customer details
+ * @param {Object} req
+ * @param {Object} res
+ */
+exports.findDetails = (req, res) => {
+  UserId = req.body.UserId;
+  findCustomerDetails(UserId,(error, data) => {
+    if (error) {
+      logger.error("Error while finding the details ",error)
+      res.status(500).send({
+        message: error.message ,
+      });
+    }
+    logger.info("Retrieved all the details successfully")
+    res.send(data);
+  });
+};

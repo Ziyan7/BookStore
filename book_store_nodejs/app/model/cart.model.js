@@ -55,9 +55,13 @@ const createCart = (cartItem) => {
       });
   };
 
+  /**
+ *@description model function for finding all cart items in database
+ * @param {callback} callback
+ * @returns error or data
+ */
   const findBooks = (UserId, callback) => {
     Cart.find({UserId : UserId})
-    .find()
     .exec((error, data) => {
       return error ? callback(error, null) : callback(null, data);
     });
@@ -85,4 +89,21 @@ const createCart = (cartItem) => {
     });
 };
  
-  module.exports = { createCart , findBooks , updateById};
+/**
+ * @description function to delete cart item in the database based on bookID
+ * @param {ObjectID} id 
+ * @param {ObjectId} UserId 
+ * @returns  data or error
+ */
+ const deleteCartBook = (id,UserId) => {
+  return Cart.findById(id)
+  .findOneAndRemove({UserId:UserId})
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  
+};
+  module.exports = { createCart , findBooks , updateById , deleteCartBook};

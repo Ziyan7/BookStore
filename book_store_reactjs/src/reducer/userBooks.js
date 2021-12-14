@@ -30,16 +30,21 @@ const userBooks = (state = initialState, action) => {
         cartBooks: [...state.cartBooks,action.data],
       };
 
-      case ActionTypes.SET_UPDATE_NOTE:
+      case ActionTypes.SET_UPDATE_BOOK:
         let newCart = [...state.cartBooks];
-        
         newCart[action.data.index] = action.data.data;
         return {
-         
           ...state,
           cartBooks: newCart,
         };
 
+        case ActionTypes.SET_DELETE_BOOK:
+          let newCartItem = state.cartBooks.filter((book) => book._id !== action.data.data._id);
+          return {
+            ...state,
+            cartBooks: newCartItem,
+          };
+  
     default:
       return state;
   }

@@ -5,6 +5,7 @@ import {
   Typography,
   CardActions,
   Button,
+  Grid
 } from "@mui/material";
 import bookService from "../service/cart.service";
 import { useDispatch } from "react-redux";
@@ -52,8 +53,14 @@ const Bookcard = ({ item }) => {
           Rs. {item.price}
         </Typography>
       </CardContent>
-      {/* {myCart.forEach((data) => {
-        data.title !== item.title ? ( 
+      {/* {myCart.forEach((data)=> {
+        console.log(data.title)
+        console.log(item.title)
+      })} */} 
+     
+       {/* {myCart.forEach((data) => { 
+        item.title !== data.title ? 
+        (
         <CardActions style={{ display: "flex", justifyContent: "space-around" }}>
         <Button
           fullWidth="true"
@@ -79,7 +86,11 @@ const Bookcard = ({ item }) => {
           Wishlist
         </Button>
       </CardActions>
-      ) : (
+     
+        )
+       : 
+       (
+  
          <CardActions style={{ display: "flex", justifyContent: "space-around" }}>
         <Button
           fullWidth="true"
@@ -93,8 +104,9 @@ const Bookcard = ({ item }) => {
           Added to bag
         </Button>
       </CardActions>
-      )
+        )
       })} */}
+
       <CardActions style={{ display: "flex", justifyContent: "space-around" }}>
         <Button
           fullWidth="true"

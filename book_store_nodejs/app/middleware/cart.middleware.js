@@ -6,7 +6,8 @@
 
  const logger  = require("../../logger/logger");
  const jwt = require("../../utility/jwt");
- 
+ const Joi = require("joi");
+
  /**
   * @description Authozization based on correct tokens
   * @param {object} req 
@@ -28,5 +29,34 @@
        next(data.Id);
      });
    };
-   module.exports = {ensureToken};
+  
+
+/** joi is used to validate input properties
+ */
+const validate = (req, res, next) => {
+  const schema = Joi.object({
+    name: Joi.string()
+      .min(3)
+      .required(),
+      
+    phoneNumber: Joi.string()
+    .regex(/^[91]+[ ][0-9]{10}$/)
+    .message("Enter a valid mobile number")
+    .required()
+  ,
+  pincode: Joi.number().min(6).required(),
+  locality: Joi.string().min(6).required(),
+  address: Joi.string().min(6).required(),
+  city: Joi.string().required(),
+  landmark: Joi.string().required(),
+  type : Joi.string().required(),
+  });
+
+  const result = schema.validate(req.body);
+  if (result.error) {
+    return res.json({ message: result.error.message });
+  }
+  next();
+};
+   module.exports = {ensureToken , validate};
  
