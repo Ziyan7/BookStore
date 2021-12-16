@@ -19,7 +19,7 @@
   
   /**
    * @description intermediate function to create new cart item
-   * @param {object} notes 
+   * @param {object} cartItem 
    * @returns data or error
    */
   
@@ -81,6 +81,7 @@ const findAllBooks = (UserId, callback) => {
    */
   
   const addCustomerDetails = (cartItem) => {
+    console.log("service")
     return addDetails(cartItem)
       .then((cart) => {
         return cart;

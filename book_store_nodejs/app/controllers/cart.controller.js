@@ -185,6 +185,11 @@ exports.findDetails = (req, res) => {
       });
     }
     logger.info("Retrieved all the details successfully")
+    if(!data){
+      return res.status(404).send({message : "empty"})
+    }
     res.send(data);
   });
 };
+
+

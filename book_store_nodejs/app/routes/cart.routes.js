@@ -5,6 +5,7 @@
  */
 
 const cart = require("../controllers/cart.controller.js");
+const order = require("../controllers/order.controller.js");
 const { ensureToken , validate } = require("../middleware/cart.middleware.js");
 
 module.exports = (app) => {
@@ -21,8 +22,11 @@ module.exports = (app) => {
    app.delete('/cart/:bookId',ensureToken, cart.delete);
 
    //Add Customer Details
-   app.post("/cart/address",validate, ensureToken, cart.addDetails);
+   app.post("/customer-details",validate, ensureToken, cart.addDetails);
 
    //Add Customer Details
-   app.get("/cart/address", ensureToken, cart.findDetails);
+   app.get("/customer-details", ensureToken, cart.findDetails);
+
+   //Order Confirmation details 
+   app.post("/order", ensureToken , order.confirmOrder)
 };

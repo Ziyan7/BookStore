@@ -77,10 +77,10 @@ let deleteCartItem = (id) => {
     });
 };
 
-const getCustomerDetails = ()=>{
+const getCustomerDetails = () => {
   let reqobj = {
     method: "get",
-    url: config.url + "/cart/address" ,
+    url: config.url + "/customer-details" ,
     headers: {
       "Content-type": "application/json",
       "Authorization" : "Bearer " + sessionStorage.getItem('token')
@@ -98,7 +98,7 @@ const getCustomerDetails = ()=>{
 let addCustomerDetails = (data) => {
   let reqObj = {
     method: "post",
-    url: config.url + "/cart/address" ,
+    url: config.url + "/customer-details" ,
     headers: {
       "Content-type": "application/json",
       "Authorization" : "Bearer " + sessionStorage.getItem('token')
@@ -107,8 +107,6 @@ let addCustomerDetails = (data) => {
   }
   return axiosService.post(reqObj)
     .then((res) => {
-      console.log("mhjkh")
-      console.log(res)
       return res;
     })
     .catch((err) => {

@@ -12,7 +12,9 @@ import {
 import "../style/dashboard.scss";
 import {useEffect , useState} from "react"
 import bookService from "../service/cart.service";
-const Customerdetails = ({ visible, setVisibility }) => {
+import OrderSummary from "./OrderSummary";
+import "../style/dashboard.scss"
+const Customerdetails = ({ visible, setVisibility  }) => {
 
   const initialUserState = {
     name: "",
@@ -22,29 +24,39 @@ const Customerdetails = ({ visible, setVisibility }) => {
     address: "",
     city: "",
     landmark: "",
-    type: "",
+    type: "Home",
   };
   const [details, setDetails] = useState(initialUserState);
+  const [orderVisibility , setOrderVisibility] = useState(false)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setDetails({ ...details, [name]: value });
   };
 
-  // useEffect(() => {
-  //     bookService
-  //       .getCustomerDetails()
-  //       .then((res) => {
-  //         console.log("gjhgj",res.data)
-  //         setDetails(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  // }, []);
+  useEffect(() => {
+      bookService
+        .getCustomerDetails()
+        .then((res) => {
+          setDetails(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
 
   const handleUpdate = () => {
+    const data = {
+    name: details.name,
+    phoneNumber:details.phoneNumber,
+    pincode: details.pincode,
+    locality: details.locality,
+    address: details.address,
+    city: details.city,
+    landmark: details.landmark,
+    type: details.type,
+    }
     bookService
-      .addCustomerDetails(details)
+      .addCustomerDetails(data)
       .then((res) => {
         console.log(res);
       })
@@ -56,13 +68,13 @@ const Customerdetails = ({ visible, setVisibility }) => {
     <Grid sx={{ width: "68.2%" }}>
       {visible === false ? (
         <Grid
-          id="customer-details"
+        id = "customer-layout"
           item
           container
           style={{
             border: "1px solid ",
             borderColor: "#DCDCDC",
-            margin: "50px 0px 0px 32px",
+            margin: "30px 0px 0px 0px",
             padding: "2%",
           }}
         >
@@ -70,13 +82,14 @@ const Customerdetails = ({ visible, setVisibility }) => {
         </Grid>
       ) : (
         <Grid
+        id = "customer-layout"
           item
           container
           fullWidth
-          style={{
+          sx={{
             border: "1px solid ",
             borderColor: "#DCDCDC",
-            margin: "50px 0px 0px 33px",
+            margin: "30px 0px 0px 0px",
             padding: "3%",
           }}
         >
@@ -198,13 +211,14 @@ const Customerdetails = ({ visible, setVisibility }) => {
               </Grid>
             </Grid>
             <Grid item xs={12} align="right">
-              <Button variant="contained" onClick={() => {setVisibility(false) ; handleUpdate()}}>
+              <Button variant="contained" onClick={() => {setVisibility(false) ; handleUpdate() ; setOrderVisibility(true)}}>
                 Continue
               </Button>
             </Grid>
           </Grid>
         </Grid>
       )}
+      <OrderSummary orderVisibility = {orderVisibility}/>
     </Grid>
   );
 };

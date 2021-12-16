@@ -6,6 +6,7 @@ let post = (data) =>{
     headers: data.headers,
     data: data.data
   }).then((response)=> {
+    console.log("help",response)
     return response.data}
     )
   .catch((error)=>{throw error})

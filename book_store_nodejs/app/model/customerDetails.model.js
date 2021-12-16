@@ -35,6 +35,7 @@ const CustomerDetails = mongoose.model("CustomerDetails", DetailsSchema);
  * @returns data or error
  */
 const addDetails = (cartItem) => {
+  console.log("modelcl")
   const cart = new CustomerDetails({
     UserId: cartItem.UserId,
     name: cartItem.name,
