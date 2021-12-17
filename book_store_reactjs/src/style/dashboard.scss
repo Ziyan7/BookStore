@@ -1,21 +1,25 @@
+$element-width : 140%;
+$card-width : 120%;
+$title-width : 90%;
+
 #book-icon {
   color: white;
   width: 100%;
 }
 #book-title {
-  font-size: 140%;
+  font-size: $element-width;
 }
 
 #cart-title {
-  font-size: 90%;
+  font-size: $title-width;
 }
 #cart-title {
-  font-size: 90%;
+  font-size: $title-width;
 }
 
 #cart-icon {
   color: white;
-  width: 140%;
+  width: $element-width;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 620px) {
@@ -54,17 +58,17 @@
     border-color: white;
   }
   #cart-card{
-    width: 120%;
+    width: $card-width ;
   }
   
   #customer-layout{
     // border-color: white;
-    width: 120%;
+    width: $card-width ;
   
   }
   #order-layout{
     border-color: white;
-    width: 120%;
+    width: $card-width ;
   }
   #image {
     width :50%

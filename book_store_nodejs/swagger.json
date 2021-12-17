@@ -1,0 +1,179 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Book-Store",
+    "description": "Book Store Registration and Login",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:9000",
+  "basePath": "/",
+
+  "tags": [
+    {
+      "name": "User",
+      "description": "CRUD Rest Api"
+    }
+  ],
+
+  "paths": {
+    "/user/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User login",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Login User",
+            "schema": {
+              "$ref": "#/definitions/User_Login"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Loggin successful",
+            "schema": {
+              "$ref": "#/definitions/User_Login"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "summary": "Create new user in system",
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "description": "User with new values of properties",
+          "schema": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      ],
+      "put": {
+        "summary": "Update user using userId",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve user using userId",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "User Info Retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+
+      "delete": {
+        "summary": "Delete user using userId",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "User is deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "definitions": {
+      "User": {
+        "required": ["name", "age", "mobileNumber", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "mobileNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "User_Login": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

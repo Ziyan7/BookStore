@@ -3,7 +3,7 @@ import RainbowText from "react-rainbow-text";
 import * as Routing from "react-router-dom";
 import React, { useState } from "react";
 import validation from "../config/validation";
-import {login} from "../service/signUp.service";
+import { login } from "../service/signUp.service";
 import {
   Grid,
   Paper,
@@ -12,12 +12,25 @@ import {
   Button,
   FormHelperText,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#A03037",
+    },
+    "& label.Mui-focused": {
+      color: "#A03037",
+    },
+  },
+});
 const Login = () => {
+  const classes = useStyles();
   const [UserName, setUserName] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [redirect,setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   const emailHandler = (event) => {
     if (validation.email(event.target.value)) {
@@ -44,11 +57,11 @@ const Login = () => {
     };
     login(data)
       .then((data) => {
-        console.log("this a then block")
-        sessionStorage.setItem('token', data.message);
+        console.log("this a then block");
+        sessionStorage.setItem("token", data.message);
         setRedirect(true);
-        console.log("this a then block after redirect")
-      })  
+        console.log("this a then block after redirect");
+      })
       .catch((error) => {
         console.log("this is a catch block" + error);
       });
@@ -58,6 +71,7 @@ const Login = () => {
     marginTop: "60px",
     textAlign: "center",
     fontFamily: "roboto",
+    color: "#A03037",
   };
   let subHeaderStyle = {
     marginTop: "10px",
@@ -76,25 +90,24 @@ const Login = () => {
     color: "red",
     fontFamily: "roboto",
   };
-  
+
   return (
     <Grid>
       <Paper className="loginStyle">
-        <h2 style={headerStyle}>
-          <RainbowText>BookStore</RainbowText>
-        </h2>
+        <h2 style={headerStyle}>BookStore</h2>
         <h2 style={subHeaderStyle}>Sign in</h2>
         <h3 style={subHeaderStyle}>Use your FundooNotes Account</h3>
         <Grid container spacing={0}>
           <Grid item xs={8}>
             <Grid>
               <TextField
+                className={classes.root}
                 autoFocus
                 label="Email Id"
                 variant="outlined"
                 size="small"
                 style={textStyle}
-                id = "emailId"
+                id="emailId"
                 onChange={(event) => emailHandler(event)}
                 required
               />
@@ -102,11 +115,12 @@ const Login = () => {
             </Grid>
             <Grid>
               <TextField
+                className={classes.root}
                 label="Password"
                 variant="outlined"
                 size="small"
                 type="password"
-                id = "password"
+                id="password"
                 style={textStyle}
                 onChange={(event) => passwordHandler(event)}
                 required
@@ -114,43 +128,44 @@ const Login = () => {
               <FormHelperText style={helperStyle}>
                 {passwordError}
               </FormHelperText>
-            </Grid >
-            <Grid style = {{ paddingBottom: "20%" }}>
-            <Link
-            
-              component={Routing.Link}
-              to="/forgotpassword"
-              style={{ paddingLeft: "55px" }}
-            >
-              Forgot Password?
-            </Link>
+            </Grid>
+            <Grid style={{ paddingBottom: "20%" }}>
+              <Link
+                component={Routing.Link}
+                to="/forgotpassword"
+                style={{ paddingLeft: "55px", color: "#A03037" }}
+              >
+                Forgot Password?
+              </Link>
             </Grid>
           </Grid>
-          <Grid  container spacing={9} justifyContent = "center" >
-          <Grid item xs={6}>
-            <Link
-              component={Routing.Link}
-              to="/"
-              // style={{ paddingLeft: "55px ", paddingRight: "85px " }}
-            >
-              Create an Account
-            </Link>
+          <Grid container spacing={9} justifyContent="center">
+            <Grid item xs={6}>
+              <Link
+                style={{ color: "#A03037" }}
+                component={Routing.Link}
+                to="/"
+                // style={{ paddingLeft: "55px ", paddingRight: "85px " }}
+              >
+                Create an Account
+              </Link>
             </Grid>
-            <Grid item xs={4} >
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              id = "SignIn-btn"
-              onClick={haddleSubmit}
-            >
-              Sign In
-            </Button>
+            <Grid item xs={4}>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ backgroundColor: "#A03037" }}
+                color="primary"
+                id="SignIn-btn"
+                onClick={haddleSubmit}
+              >
+                Sign In
+              </Button>
             </Grid>
           </Grid>
         </Grid>
       </Paper>
-     {redirect ? <Routing.Redirect to="/dashboard"/> : null}
+      {redirect ? <Routing.Redirect to="/dashboard" /> : null}
     </Grid>
   );
 };

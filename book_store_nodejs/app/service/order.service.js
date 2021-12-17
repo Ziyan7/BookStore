@@ -5,7 +5,8 @@
  */
 
  const {
-    addOrder
+    addOrder , 
+    findOrderDetails
   } = require("../model/order.model.js");
 
 
@@ -27,4 +28,14 @@
       });
   };
 
-  module.exports = {addOrderDetails}
+  const getOrder = (UserId , orderId) => {
+    return findOrderDetails(UserId , orderId)
+      .then((note) => {
+        return note;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
+  module.exports = {addOrderDetails, getOrder}

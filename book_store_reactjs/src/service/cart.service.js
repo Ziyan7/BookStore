@@ -58,7 +58,7 @@ let updateBooksQuantity = (data, id) => {
     });
 };
 
-let deleteCartItem = (id) => {
+const deleteCartItem = (id) => {
   
   let reqObj = {
     method: "delete",
@@ -114,4 +114,4 @@ let addCustomerDetails = (data) => {
     });
 };
 
-export default { addBook , getCartBooks, updateBooksQuantity ,deleteCartItem , getCustomerDetails , addCustomerDetails};
+export { addBook , getCartBooks, updateBooksQuantity ,deleteCartItem , getCustomerDetails , addCustomerDetails}

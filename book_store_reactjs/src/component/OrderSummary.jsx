@@ -1,60 +1,69 @@
 import {
-    Button,
-    Grid,
-    Typography,
-    Card,
-    CardContent,
-    CardMedia,
-    Stack
-  
-  } from "@mui/material";
-  import { useSelector } from "react-redux";
-  import * as Routing from "react-router-dom";
-  import "../style/dashboard.scss";
-  import orderService from "../service/order.service";
-  
-  const OrderSummary = ({ orderVisibility }) => {
-    const myCart = useSelector((state) => state.allBooks.cartBooks);
-const orderDetails = () => {
-let orderId = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
- myCart.map((order) => {
-   let amount = (order.price * order.numberOfBooks);
-   const data = {
-    orderId :  orderId,
-    title : order.title ,
-    totalAmount : amount ,
-    status : "Order Confirm",
-   }
-     orderService.addOrder(data)
-     .then ((res) => {
-       console.log(res)
-     })
-     .catch((error) => {
-       console.log(error)
-     })
+  Button,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
+import { useSelector } from "react-redux";
+import * as Routing from "react-router-dom";
+import "../style/dashboard.scss";
+import { addOrder } from "../service/order.service";
+import { deleteCartItem } from "../service/cart.service";
+import { deleteCartDetails, confirmId } from "../action/index.js";
+import { useDispatch } from "react-redux";
 
- })
-}
-  
-    return (
-      <Grid >
-        {orderVisibility === false ? (
-          <Grid
-          id = "order-layout"
-            item
-            container
-            style={{
-              border: "1px solid ",
-              borderColor: "#DCDCDC",
-              margin: "27px 0px 0px 0px",
-              padding: "2%",
-            }}
-          >
-            <Typography>Order Summary</Typography>
-          </Grid>
-        ) : (   
-          <Grid
-          id = "order-layout"
+const OrderSummary = ({ orderVisibility }) => {
+  const dispatch = useDispatch();
+  const myCart = useSelector((state) => state.allBooks.cartBooks);
+  const orderDetails = () => {
+    let orderId = Math.floor(
+      Math.random() * Math.floor(Math.random() * Date.now())
+    );
+    dispatch(confirmId(orderId));
+    myCart.map((order) => {
+      let amount = order.price * order.numberOfBooks;
+      const data = {
+        orderId: orderId,
+        title: order.title,
+        quantity: order.numberOfBooks,
+        totalAmount: amount,
+        status: "Order Confirmed",
+      };
+      addOrder(data)
+        .then((res) => {
+          deleteCartItem(order._id)
+            .then((res) => {
+              dispatch(deleteCartDetails({ data: res.book }));
+            })
+            .catch((err) => console.log(err.message));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
+  return (
+    <Grid>
+      {orderVisibility === false ? (
+        <Grid
+          id="order-layout"
+          item
+          container
+          style={{
+            border: "1px solid ",
+            borderColor: "#DCDCDC",
+            margin: "27px 0px 0px 0px",
+            padding: "2%",
+          }}
+        >
+          <Typography>Order Summary</Typography>
+        </Grid>
+      ) : (
+        <Grid
+          id="order-layout"
           item
           container
           sx={{
@@ -66,9 +75,9 @@ let orderId = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
         >
           <Typography>Order Summary</Typography>
           {myCart.map((book, index) => (
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <Card
-              id = "cart-card"
+                id="cart-card"
                 elevation={"none"}
                 sx={{
                   width: "80%",
@@ -123,7 +132,7 @@ let orderId = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
                           color: "#0A0102",
                         }}
                       >
-                        Rs.{book.price * book.numberOfBooks} 
+                        Rs.{book.price * book.numberOfBooks}
                       </Typography>
                     </CardContent>
                   </Grid>
@@ -132,15 +141,19 @@ let orderId = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
             </Grid>
           ))}
           <Grid item xs={12} align="right">
-              <Button variant="contained" component={Routing.Link} to="/order"  onClick={orderDetails}>
-                CHECKOUT
-              </Button>
-            </Grid>
+            <Button
+              variant="contained"
+              component={Routing.Link}
+              to="/order"
+              onClick={orderDetails}
+            >
+              CHECKOUT
+            </Button>
+          </Grid>
         </Grid>
-        )}
-      </Grid>
-    )
-  };
-  
-  export default OrderSummary;
-  
+      )}
+    </Grid>
+  );
+};
+
+export default OrderSummary;

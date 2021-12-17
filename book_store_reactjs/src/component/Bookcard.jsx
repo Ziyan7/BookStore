@@ -10,7 +10,7 @@ import {
   MenuList,
   ListItemText,
 } from "@mui/material";
-import bookService from "../service/cart.service";
+import {addBook} from "../service/cart.service";
 import { useDispatch } from "react-redux";
 import { setCartBooks } from "../action/index.js";
 import { useSelector } from "react-redux";
@@ -30,8 +30,7 @@ const Bookcard = ({ item }) => {
   const dispatch = useDispatch();
   const myCart = useSelector((state) => state.allBooks.cartBooks);
   const addToCart = () => {
-    bookService
-      .addBook(item)
+    addBook(item)
       .then((res) => {
         console.log(res);
         dispatch(setCartBooks(res.cartItem));
@@ -91,7 +90,7 @@ const Bookcard = ({ item }) => {
           style={{ display: "flex", justifyContent: "space-around" }}
         >
           <Button
-            fullWidth="true"
+            fullWidth
             style={{
               fontSize: "11px",
               backgroundColor: "#3371B5",
@@ -109,7 +108,7 @@ const Bookcard = ({ item }) => {
           style={{ display: "flex", justifyContent: "space-around" }}
         >
           <Button
-            fullWidth="true"
+            fullWidth
             style={{
               fontSize: "11px",
               backgroundColor: "#A03037",
@@ -121,7 +120,7 @@ const Bookcard = ({ item }) => {
           </Button>
 
           <Button
-            fullWidth="true"
+            fullWidth
             style={{
               fontSize: "11px",
               color: "black",

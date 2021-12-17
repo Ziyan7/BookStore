@@ -13,11 +13,11 @@ import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useSelector } from "react-redux";
-import { setUpdate, deleteCartItem } from "../action/index.js";
-import cartService from "../service/cart.service";
+import { setUpdate, deleteCartDetails } from "../action/index.js";
+import { updateBooksQuantity, deleteCartItem } from "../service/cart.service";
 import Customerdetails from "./Customerdetails";
 import { useDispatch } from "react-redux";
-import "../style/dashboard.scss"
+import "../style/dashboard.scss";
 
 const Cartitem = () => {
   const myCart = useSelector((state) => state.allBooks.cartBooks);
@@ -28,8 +28,8 @@ const Cartitem = () => {
     let data = {
       numberOfBooks: count === 0 ? 1 : count,
     };
-    cartService
-      .updateBooksQuantity(data, id)
+
+    updateBooksQuantity(data, id)
       .then((res) => {
         dispatch(setUpdate({ data: res, index: index }));
       })
@@ -37,26 +37,20 @@ const Cartitem = () => {
   };
 
   const deleteCartBooks = (id) => {
-    cartService
-      .deleteCartItem(id)
+    deleteCartItem(id)
       .then((res) => {
-        dispatch(deleteCartItem({ data: res.book }));
+        dispatch(deleteCartDetails({ data: res.book }));
       })
       .catch((err) => console.log(err.message));
   };
 
   return (
     <Box sx={{ display: "flex" }}>
-     
-      <Grid
-        container
-        spacing={4}
-        style={{ padding : "130px 4% 4% 15%" }}
-      >
+      <Grid container spacing={4} style={{ padding: "130px 4% 4% 15%" }}>
         <Grid
-         id = "cart-layout"
+          id="cart-layout"
           sx={{
-            width : "68%",
+            width: "68%",
             border: "1px solid",
             borderColor: "#DCDCDC",
             padding: "2% 0 3% 3%",
@@ -64,9 +58,9 @@ const Cartitem = () => {
         >
           <Typography fontWeight={"bold"}>My cart ({myCart.length})</Typography>
           {myCart.map((book, index) => (
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <Card
-              id = "cart-card"
+                id="cart-card"
                 elevation={"none"}
                 sx={{
                   width: "80%",
@@ -121,20 +115,20 @@ const Cartitem = () => {
                           color: "#0A0102",
                         }}
                       >
-                        Rs.{book.price}
+                        Rs.{book.price * book.numberOfBooks}
                       </Typography>
                     </CardContent>
                     <Stack direction="row">
-                      <IconButton>
-                        <RemoveCircleOutlineIcon
-                          onClick={() => {
-                            updateNoOfBooks(
-                              book._id,
-                              index,
-                              book.numberOfBooks - 1
-                            );
-                          }}
-                        />
+                      <IconButton
+                        onClick={() => {
+                          updateNoOfBooks(
+                            book._id,
+                            index,
+                            book.numberOfBooks - 1
+                          );
+                        }}
+                      >
+                        <RemoveCircleOutlineIcon />
                       </IconButton>
                       <Box
                         sx={{
@@ -161,7 +155,7 @@ const Cartitem = () => {
                         />
                       </IconButton>
                       <Button
-                        style={{ color: "black" , width : "10%"}}
+                        style={{ color: "black", width: "10%" }}
                         onClick={() => deleteCartBooks(book._id)}
                       >
                         Remove
@@ -172,10 +166,7 @@ const Cartitem = () => {
               </Card>
             </Grid>
           ))}
-          <Stack
-            direction="row-reverse"
-            sx={{ paddingRight: "35px" }}
-          >
+          <Stack direction="row-reverse" sx={{ paddingRight: "35px" }}>
             <Button
               variant="contained"
               type="submit"
@@ -194,10 +185,7 @@ const Cartitem = () => {
             </Button>
           </Stack>
         </Grid>
-        <Customerdetails
-          visible={visible}
-          setVisibility={setVisibility}
-        />
+        <Customerdetails visible={visible} setVisibility={setVisibility} />
       </Grid>
     </Box>
   );

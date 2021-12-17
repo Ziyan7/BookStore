@@ -81,7 +81,6 @@ const findAllBooks = (UserId, callback) => {
    */
   
   const addCustomerDetails = (cartItem) => {
-    console.log("service")
     return addDetails(cartItem)
       .then((cart) => {
         return cart;

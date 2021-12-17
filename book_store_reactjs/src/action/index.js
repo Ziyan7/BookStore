@@ -34,11 +34,19 @@ export const setUpdate = (book) => {
   };
 };
 
-export const deleteCartItem = (book) => {
+export const deleteCartDetails = (book) => {
   return {
       type: ActionTypes.SET_DELETE_BOOK,
       data: book,
     };
 };
+
+export const confirmId = (order) => {
+  return {
+      type: ActionTypes.SET_ORDER_ID,
+      data: order,
+    };
+};
+
 
 

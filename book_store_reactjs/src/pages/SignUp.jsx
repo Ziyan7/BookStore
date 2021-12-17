@@ -1,11 +1,11 @@
 // import "../style/signUp.css";
-import "../style/register.scss"
+import "../style/register.scss";
 import logo from "../assets/images/images.jfif";
 import RainbowText from "react-rainbow-text";
 import React, { Component } from "react";
 import * as Routing from "react-router-dom";
 import validation from "../config/validation";
-import {register} from "../service/signUp.service";
+import { register } from "../service/signUp.service";
 
 import {
   Grid,
@@ -17,6 +17,8 @@ import {
 } from "@material-ui/core";
 
 class SignUp extends Component {
+ 
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +34,9 @@ class SignUp extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+ 
+
   firstHandler = (event) => {
     validation.firstName(event.target.value)
       ? this.setState({
@@ -111,66 +116,70 @@ class SignUp extends Component {
   };
 
   textStyle = {
-    marginLeft: "10px", 
-    fontFamily : "roboto"
-  }
+    marginLeft: "10px",
+    fontFamily: "roboto",
+  };
   nameStyle = {
     width: "40%",
     margin: "10px",
     marginBottom: "0px",
-    fontFamily : "roboto"
+    fontFamily: "roboto",
   };
 
   emailStyle = {
     width: "85%",
     margin: "10px",
     marginBottom: "0px",
-    fontFamily : "roboto"
+    fontFamily: "roboto",
   };
 
   helperStyle = {
     marginLeft: "12px ",
     color: "red",
-    fontFamily : "roboto"
+    fontFamily: "roboto",
   };
 
   passwordStyle = {
     width: "40%",
     margin: "10px",
-    fontFamily : "roboto"
+    fontFamily: "roboto",
   };
 
   render() {
     return (
       <Grid>
         <Paper className="paperStyle">
-          <h1 style={this.textStyle}>
-            <RainbowText >BookStore</RainbowText>
+          <h1
+            style={{
+              marginLeft: "10px",
+              fontFamily: "roboto",
+              color: "#A03037",
+            }}
+          >
+            BookStore
           </h1>
-          <h3 style={this.textStyle}>
-            Create your BookStore Account
-          </h3>
+          <h3 style={this.textStyle}>Create your BookStore Account</h3>
           <Grid container spacing={0}>
             <Grid item xs={8}>
               <Grid>
                 <TextField
-                className = "firstName"
+                className="firstName"
                   autoFocus
                   type="input"
                   label="First Name"
                   variant="outlined"
                   size="small"
-                  id = "firstName"
+                  id="firstName"
                   style={this.nameStyle}
                   onChange={this.firstHandler}
                   required
                 />
                 <TextField
-                 className = "lastName"
+                  className="lastName"
                   label="Last Name"
                   variant="outlined"
                   size="small"
-                  id = "lastName"
+                  id="lastName"
                   style={this.nameStyle}
                   onChange={this.lastHandler}
                   required
@@ -185,14 +194,14 @@ class SignUp extends Component {
                   label="Email"
                   variant="outlined"
                   size="small"
-                  id = "email"
+                  id="email"
                   style={this.emailStyle}
                   helperText="You can use letters,numbers or periods"
                   onChange={this.emailHandler}
                   required
                 />
                 <FormHelperText style={this.helperStyle}>
-                 {this.state.emailError}
+                  {this.state.emailError}
                 </FormHelperText>
               </Grid>
               <Grid>
@@ -201,7 +210,7 @@ class SignUp extends Component {
                   variant="outlined"
                   size="small"
                   type="password"
-                  id = "password"
+                  id="password"
                   style={this.passwordStyle}
                   onChange={this.passwordHandler}
                   required
@@ -211,7 +220,7 @@ class SignUp extends Component {
                   variant="outlined"
                   size="small"
                   type="password"
-                  id = "confirm"
+                  id="confirm"
                   style={this.passwordStyle}
                   onChange={this.confirmHandler}
                   required
@@ -229,17 +238,21 @@ class SignUp extends Component {
                 <Link
                   component={Routing.Link}
                   to="/login"
-                  style={{ paddingRight: "40% ", marginLeft: "10px " }}
-                  id = "login-redirect"
+                  style={{
+                    paddingRight: "40% ",
+                    marginLeft: "10px ",
+                    color: "#A03037",
+                  }}
+                  id="login-redirect"
                 >
                   Sign in instead
                 </Link>
                 <Button
                   type="submit"
                   variant="contained"
-                  color="primary"
-                  onClick={this.handleSubmit} 
-                  id = "signUp-btn"
+                  style={{ backgroundColor: "#A03037" }}
+                  onClick={this.handleSubmit}
+                  id="signUp-btn"
                 >
                   Create
                 </Button>

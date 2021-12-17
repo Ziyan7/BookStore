@@ -20,4 +20,23 @@ let addOrder = (data) => {
         throw err
       });
   };
-  export default {addOrder}
+
+  const getOrderId = (id) => {
+    let reqobj = {
+      method: "get",
+      url: config.url + "/order/" + id ,
+      headers: {
+        "Content-type": "application/json",
+        "Authorization" : "Bearer " + sessionStorage.getItem('token')
+      },
+    }
+    return axiosService.get(reqobj)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  };
+  
+  export  {addOrder , getOrderId}

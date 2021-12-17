@@ -26,7 +26,7 @@ const ensureToken = (req, res, next) => {
       return res.send(error);
     }
     req.body.UserId = data.id;
-    next(data.Id);
+    next();
   });
 };
 

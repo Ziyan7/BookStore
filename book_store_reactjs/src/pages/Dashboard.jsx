@@ -7,14 +7,14 @@ import { setAllBooks ,  setAllCartBooks } from "../action/index";
 import { useDispatch } from "react-redux";
 import bookService from "../service/book.service";
 import Book from "../component/Book.jsx";
-import cartService from "../service/cart.service";
+import {getCartBooks} from "../service/cart.service";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const token = sessionStorage.getItem("token");
   useEffect(() => {
-    bookService
-      .getBooks()
+    bookService.
+   getBooks()
       .then((res) => {
         dispatch(setAllBooks(res.data));
       })
@@ -22,8 +22,7 @@ const Dashboard = () => {
         console.log(err);
       });
 
-      cartService
-      .getCartBooks()
+      getCartBooks()
       .then((res) => {
         dispatch(setAllCartBooks(res.data));
         console.log(res);

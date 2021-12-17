@@ -27,6 +27,9 @@ module.exports = (app) => {
    //Add Customer Details
    app.get("/customer-details", ensureToken, cart.findDetails);
 
-   //Order Confirmation details 
+   //Add order Confirmation details 
    app.post("/order", ensureToken , order.confirmOrder)
+
+   //Get Order Confirmation details 
+   app.get("/order/:orderId", ensureToken , order.getOrderId)
 };

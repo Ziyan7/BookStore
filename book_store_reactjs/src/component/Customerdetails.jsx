@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import "../style/dashboard.scss";
 import {useEffect , useState} from "react"
-import bookService from "../service/cart.service";
+import {getCustomerDetails,addCustomerDetails} from "../service/cart.service";
 import OrderSummary from "./OrderSummary";
 import "../style/dashboard.scss"
 const Customerdetails = ({ visible, setVisibility  }) => {
@@ -34,8 +34,7 @@ const Customerdetails = ({ visible, setVisibility  }) => {
   };
 
   useEffect(() => {
-      bookService
-        .getCustomerDetails()
+      getCustomerDetails()
         .then((res) => {
           setDetails(res.data);
         })
@@ -55,8 +54,7 @@ const Customerdetails = ({ visible, setVisibility  }) => {
     landmark: details.landmark,
     type: details.type,
     }
-    bookService
-      .addCustomerDetails(data)
+   addCustomerDetails(data)
       .then((res) => {
         console.log(res);
       })
