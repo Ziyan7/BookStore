@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : Services contain all business logic and returns objects or throws errors to the controller
  * @file : cart.service.js
  * @author  : Abdul Ziyan

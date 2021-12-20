@@ -6,7 +6,7 @@ export const setAllBooks = (books) => {
   };
 };
 
-export const searchBooks = (books) => {
+export const searchfilteredBooks = (books) => {
   return {
     type: ActionTypes.SET_SEARCHED_BOOKS,
     data: books

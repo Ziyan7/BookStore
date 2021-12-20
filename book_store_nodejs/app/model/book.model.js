@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : The schema definition of the Model
  * @file : book.model.js
  * @author  : Abdul Ziyan
@@ -24,16 +25,18 @@ const BooksSchema = mongoose.Schema(
 
 const Book = mongoose.model("books", BooksSchema);
 
-/**
- *@description model function for finding all books in database
- * @param {callback} callback
- * @returns error or data
- */
-const findBooks = (callback) => {
-    Book.find((error, data) => {
-    return error ? callback(error, null) : callback(null, data);
-  });
-};
+ /**
+   * @description finds all notes present in data base
+   * @returns err or data
+   */
+  const findBooks = async () => {
+    try {
+      const data = await Book.find();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  };
 
 module.exports = {
     findBooks,

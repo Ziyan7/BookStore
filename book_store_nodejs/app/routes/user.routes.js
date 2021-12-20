@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : The API routes maps to the Controller
  * @file : user.router.js
  * @author  : Abdul Ziyan

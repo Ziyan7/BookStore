@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : handle the requests and sends the response
  * @file : cart.controller.js
  * @author  : Abdul Ziyan

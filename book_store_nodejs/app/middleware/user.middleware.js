@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : Validates the requests  
  * @file : user.middleware.js
  * @author  : Abdul Ziyan

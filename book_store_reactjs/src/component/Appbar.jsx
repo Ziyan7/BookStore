@@ -12,11 +12,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import "../style/dashboard.scss";
 import { useDispatch } from "react-redux";
-import { searchBooks } from "../action/index.js";
+import { searchfilteredBooks } from "../action/index.js";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import * as Routing from "react-router-dom";
-
+import {searchBook} from "../service/book.service";
 
 import React, { useState, useEffect } from "react";
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
@@ -24,22 +24,30 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 }));
 
 const Appbar = () => {
-  const dispatch = useDispatch();
+
+
   const myBooks = useSelector((state) => state.allBooks.bookState);
-  const handleSearch = (event) => {
-    dispatch(
-      searchBooks(
-        myBooks.filter((item) => {
-          return item.title
-            .toLowerCase()
-            .includes(event.target.value.toLowerCase());
-        })
-      )
-    );
-  };
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(searchBooks(myBooks));
+    dispatch(searchfilteredBooks(myBooks));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myBooks]);
+
+  const handleSearch = (event) => {
+    console.log(event.target.value)
+    if (event.target.value.length >= 2) {
+     searchBook({ searchText: event.target.value })
+        .then((res) => {
+          dispatch(searchfilteredBooks(res));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      dispatch(searchfilteredBooks(myBooks));
+    }
+  };
 
   return (
     <AppBar >

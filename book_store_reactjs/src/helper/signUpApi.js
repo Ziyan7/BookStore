@@ -1,5 +1,6 @@
 import axios from "axios";
 let post = (data) =>{
+  console.log(data)
   return axios({
     method: data.method,
     url: data.url,

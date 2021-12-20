@@ -5,18 +5,19 @@ import AppBar from "../component/Appbar.jsx";
 import { Redirect } from "react-router";
 import { setAllBooks ,  setAllCartBooks } from "../action/index";
 import { useDispatch } from "react-redux";
-import bookService from "../service/book.service";
+import {getBooks} from "../service/book.service";
 import Book from "../component/Book.jsx";
 import {getCartBooks} from "../service/cart.service";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const [count,setCount] = useState(0)
   const token = sessionStorage.getItem("token");
   useEffect(() => {
-    bookService.
-   getBooks()
+   getBooks(1)
       .then((res) => {
-        dispatch(setAllBooks(res.data));
+        setCount(res.data.count)
+        dispatch(setAllBooks(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -38,7 +39,7 @@ const Dashboard = () => {
     return (
       <Box sx={{ display: "flex" }}>
         <AppBar />
-        <Book />
+        <Book count ={count} />
       </Box>
     );
   }

@@ -1,4 +1,5 @@
 /**
+ * Execution: 1. default node  cmd> nodemon server.js
  * Purpose : The schema definition of the Model
  * @file : customer.model.js
  * @author  : Abdul Ziyan
