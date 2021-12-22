@@ -1,1 +1,2 @@
-export default {url : "http://localhost:9000"};
+require("dotenv").config();
+export default {url : process.env.REACT_APP_URL };

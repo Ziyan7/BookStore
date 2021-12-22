@@ -1,7 +1,6 @@
 // import "../style/signUp.css";
 import "../style/register.scss";
-import logo from "../assets/images/images.jfif";
-import RainbowText from "react-rainbow-text";
+import logo from "../assets/images/book.jpg";
 import React, { Component } from "react";
 import * as Routing from "react-router-dom";
 import validation from "../config/validation";
@@ -16,11 +15,23 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 
+import { withStyles } from "@material-ui/core/styles";
+
+const useStyles = (theme) => ({
+  root: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#A03037",
+    },
+    "& label.Mui-focused": {
+      color: "#A03037",
+    },
+  },
+});
+
 class SignUp extends Component {
- 
-  
   constructor(props) {
     super(props);
+
     this.state = {
       firstName: "",
       lastName: "",
@@ -34,8 +45,6 @@ class SignUp extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
- 
 
   firstHandler = (event) => {
     validation.firstName(event.target.value)
@@ -146,9 +155,10 @@ class SignUp extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Grid>
-        <Paper className="paperStyle">
+        <Paper elevation={5} className="paperStyle">
           <h1
             style={{
               marginLeft: "10px",
@@ -163,7 +173,7 @@ class SignUp extends Component {
             <Grid item xs={8}>
               <Grid>
                 <TextField
-                className="firstName"
+                  className={classes.root}
                   autoFocus
                   type="input"
                   label="First Name"
@@ -175,7 +185,7 @@ class SignUp extends Component {
                   required
                 />
                 <TextField
-                  className="lastName"
+                  className={classes.root}
                   label="Last Name"
                   variant="outlined"
                   size="small"
@@ -190,6 +200,7 @@ class SignUp extends Component {
               </Grid>
               <Grid>
                 <TextField
+                  className={classes.root}
                   placeholder="name@gmail.com"
                   label="Email"
                   variant="outlined"
@@ -206,6 +217,7 @@ class SignUp extends Component {
               </Grid>
               <Grid>
                 <TextField
+                  className={classes.root}
                   label="Password"
                   variant="outlined"
                   size="small"
@@ -216,6 +228,7 @@ class SignUp extends Component {
                   required
                 />
                 <TextField
+                  className={classes.root}
                   label="Conform"
                   variant="outlined"
                   size="small"
@@ -250,7 +263,7 @@ class SignUp extends Component {
                 <Button
                   type="submit"
                   variant="contained"
-                  style={{ backgroundColor: "#A03037" , color : "white" }}
+                  style={{ backgroundColor: "#A03037", color: "white" }}
                   onClick={this.handleSubmit}
                   id="signUp-btn"
                 >
@@ -259,7 +272,7 @@ class SignUp extends Component {
               </Grid>
             </Grid>
             <Grid item xs={2}>
-              <img src={logo} style={{ width: "200%" }} alt="Loading" />
+              <img id="logo" src={logo} alt="Loading" />
             </Grid>
           </Grid>
         </Paper>
@@ -267,4 +280,4 @@ class SignUp extends Component {
     );
   }
 }
-export default SignUp;
+export default withStyles(useStyles)(SignUp);
