@@ -117,17 +117,37 @@
    * @param {Object} req
    * @param {Object} res
    */
-  exports.findAll = (req, res) => {
-    findAlltheUsers((error, data) => {
-      if (error) {
+  // exports.findAll = (req, res) => {
+  //   findAlltheUsers((error, data) => {
+  //     if (error) {
+  //       logger.error(error);
+  //       responseStatus = statusObject.userApiFailure;
+  //       responseStatus.message = error;
+  //       return res.send(responseStatus);
+  //     }
+  //     res.send(data);
+  //   });
+  // };
+
+   /**
+   * @description Handles request and response for finding all user
+   * @param {Object} req
+   * @param {Object} res
+   */
+    exports.findAll  = async(req, res) => {
+      try {
+        let data = await findAlltheUsers()
+        responseObject = statusObject.userApiSuccess;
+        responseObject.message = data;
+        logger.info("Retrieval successfull");
+        return res.send(responseObject);
+      } catch (error) {
         logger.error(error);
-        responseStatus = statusObject.userApiFailure;
-        responseStatus.message = error;
-        return res.send(responseStatus);
+        responseObject = statusObject.userApiFailure;
+        responseObject.message = error.message;
+        return res.send(responseObject);
       }
-      res.send(data);
-    });
-  };
+    };
   
   /**
    * @description Retrieve and return UserInfo from the database based on the id

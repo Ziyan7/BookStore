@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config();
+const PORT = process.env.PORT ;
 
 // Configuring the database
 const connect = require("./config/db.config.js");
@@ -9,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin:process.env.URL ,
   })
 );
 
@@ -31,7 +33,7 @@ app.get("/", (req, res) => {
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // listen for requests
-app.listen(9000, () => {
+app.listen(PORT, () => {
   console.log("Server is listening on port 9000");
   connect();
 });

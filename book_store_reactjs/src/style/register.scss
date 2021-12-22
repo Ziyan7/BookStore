@@ -8,3 +8,13 @@
 .paperStyle {
  @include register
   }
+
+  @media only screen and (max-width : 1280px  ) {
+    .paperStyle {
+      padding: 20;
+      padding-top: 20;
+      margin: 20px auto;
+      height: 90vh;
+      width: 55%;
+    }
+}

@@ -79,7 +79,7 @@ const Appbar = () => {
       <Typography variant="h6" id="cart-title" style = {{paddingLeft : "20%"}} >
         Cart
       </Typography>
-      <IconButton component={Routing.Link} to="/cart"  style={{ color: "white", paddingRight: "6%" }} >
+      <IconButton id="cart-btn" component={Routing.Link} to="/cart"  style={{ color: "white", paddingRight: "6%" }} >
         <ShoppingCartIcon id="cart-icon" fontSize="large"  />
       </IconButton>
     </Toolbar>

@@ -209,7 +209,7 @@ const Customerdetails = ({ visible, setVisibility  }) => {
               </Grid>
             </Grid>
             <Grid item xs={12} align="right">
-              <Button variant="contained" onClick={() => {setVisibility(false) ; handleUpdate() ; setOrderVisibility(true)}}>
+              <Button id= "continue-btn" variant="contained" onClick={() => {setVisibility(false) ; handleUpdate() ; setOrderVisibility(true)}}>
                 Continue
               </Button>
             </Grid>

@@ -17,6 +17,7 @@ const {
 const jwt = require("../../utility/jwt");
 const bcrypt = require("bcrypt");
 const mail = require("../../utility/nodemailer");
+const redis = require("../../utility/redis/cache");
 
 /**
  * @description
@@ -89,12 +90,27 @@ const createNewUser = (Userinfo, callback) => {
  * @description intermediate function to get all Userinfo
  * @param {callback} callback 
  */
-const findAlltheUsers = (callback) => {
+// const findAlltheUsers = (callback) => {
 
-  findUsers((error, data) => {
-    return error ? callback(error, null) : callback(null, data);
-  });
+//   findUsers((error, data) => {
+//     return error ? callback(error, null) : callback(null, data);
+//   });
+// };
+
+const findAlltheUsers = async () => {
+  try {
+    let data = await redis.getUser("user")
+    if(data === null){
+      data = await findUsers();
+      await redis.setUser("user",JSON.stringify(data))
+    }
+    await redis.closeConnection();
+    return JSON.parse(data);
+  } catch (error) {
+    throw error;
+  }
 };
+
 
 /**
  * @description intermediate function to get particular Userinfo 

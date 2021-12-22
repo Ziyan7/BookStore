@@ -142,6 +142,7 @@ const OrderSummary = ({ orderVisibility }) => {
           ))}
           <Grid item xs={12} align="right">
             <Button
+            id = "order-btn"
               variant="contained"
               component={Routing.Link}
               to="/order"
