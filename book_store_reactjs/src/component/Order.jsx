@@ -21,15 +21,19 @@ const Order = () => {
 }, []);
 
   return (
-    <Grid container>
-      <Grid item xs={12} sx={{ padding: "90px 30% 0px 35%" }}>
-        <img id="order-image" alt="Order Placed Successfully" src={logo} sx={{ width: "90%" }} />
+    <Grid container container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+   >
+      <Grid item xs={12} sx={{ paddingTop: "90px " }} >
+        <img id="order-image" alt="Order Placed Successfully" src={logo} display = "block"  margin-left = "auto" margin-right = "auto"/>
       </Grid>
       <Grid
         item
         xs={12}
         sx={{
-          padding: "0px 30% 2% 30%",
+          paddingBottom: "2%",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -65,7 +69,7 @@ const Order = () => {
           </tr>
         </table>
       </Grid>
-      <Grid item xs={12} style={{ padding: "2% 0px 0px 43%" }}>
+      <Grid item xs={12} style={{ paddingTop: "2%" }}>
         <Button
           style={{ backgroundColor: "#3371B5", color: "white" }}
           component={Link}

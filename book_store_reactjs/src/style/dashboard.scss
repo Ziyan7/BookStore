@@ -55,10 +55,11 @@ $title-width : 90%;
   }
 
   #cart-layout{
-    border-color: white;
+    // border-color: white;
+    width: 82%
   }
   #cart-card{
-    width: $card-width ;
+    width: 60vw ;
   }
   
   #customer-layout{
@@ -70,7 +71,9 @@ $title-width : 90%;
     border-color: white;
     width: $card-width ;
   }
-  #image {
-    width :50%
+  #book-img {
+    width :120%
   }
 }
+
+

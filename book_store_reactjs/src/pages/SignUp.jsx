@@ -7,12 +7,15 @@ import validation from "../config/validation";
 import { register } from "../service/signUp.service";
 
 import {
+  Box,
   Grid,
   Paper,
   TextField,
   Link,
   Button,
   FormHelperText,
+  FormControlLabel,
+  Checkbox
 } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -28,6 +31,7 @@ const useStyles = (theme) => ({
   },
 });
 
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -42,9 +46,15 @@ class SignUp extends Component {
       emailError: "",
       passwordError: "",
       confirmError: "",
+      showPassword :false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  
+  handleShowPassword = () => {
+    this.setState({showPassword : !this.state.showPassword})
+  };
 
   firstHandler = (event) => {
     validation.firstName(event.target.value)
@@ -157,7 +167,7 @@ class SignUp extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid>
+      <Grid >
         <Paper elevation={5} className="paperStyle">
           <h1
             style={{
@@ -221,7 +231,7 @@ class SignUp extends Component {
                   label="Password"
                   variant="outlined"
                   size="small"
-                  type="password"
+                  type={this.state.showPassword ? "text" : "password"}
                   id="password"
                   style={this.passwordStyle}
                   onChange={this.passwordHandler}
@@ -247,19 +257,34 @@ class SignUp extends Component {
                   {this.state.confirmError}
                 </FormHelperText>
               </Grid>
-              <Grid style={{ paddingTop: "10%" }}>
+              <Grid  >
+            <FormControlLabel
+             style={{ paddingLeft: "10px" }}
+              control={<Checkbox />}
+              label={
+                <Box component="div" fontSize={12} fontWeight={"bold"}>
+                   Show password
+                 </Box>
+           }
+              onClick={this.handleShowPassword}
+            />
+          </Grid>
+              <Grid container style={{ paddingTop: "7%" }}>
+                <Grid item xs ={8}>
                 <Link
                   component={Routing.Link}
                   to="/login"
                   style={{
-                    paddingRight: "40% ",
                     marginLeft: "10px ",
                     color: "#A03037",
+                    fontWeight:"600"
                   }}
                   id="login-redirect"
                 >
                   Sign in instead
                 </Link>
+                </Grid>
+                <Grid item xs ={4}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -269,6 +294,7 @@ class SignUp extends Component {
                 >
                   Create
                 </Button>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item xs={2}>

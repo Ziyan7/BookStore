@@ -18,6 +18,10 @@ import { updateBooksQuantity, deleteCartItem } from "../service/cart.service";
 import Customerdetails from "./Customerdetails";
 import { useDispatch } from "react-redux";
 import "../style/dashboard.scss";
+import MuiAppBar from "@mui/material/AppBar";
+import { styled } from "@mui/material/styles";
+
+const AppBar = styled(MuiAppBar)(({ theme }) => ({}));
 
 const Cartitem = () => {
   const myCart = useSelector((state) => state.allBooks.cartBooks);
@@ -76,6 +80,7 @@ const Cartitem = () => {
                     style={{ display: "flex", justifyContent: "center" }}
                   >
                     <CardMedia
+                    id ="book-img"
                       component="img"
                       alt="images"
                       sx={{
@@ -167,27 +172,32 @@ const Cartitem = () => {
             </Grid>
           ))}
           <Stack direction="row-reverse" sx={{ paddingRight: "35px" }}>
-            <Button
-            id ="purchase-btn"
-              variant="contained"
-              type="submit"
-              size="small"
-              style={{
-                background: "#3371B5",
-                color: "white",
-                width: "20%",
-                height: "20%",
-              }}
-              onClick={() => {
-                setVisibility(true);
-              }}
-            >
-              PLACE ORDER
-            </Button>
+            {myCart.length > 0 ? (
+              <Button
+                id="purchase-btn"
+                variant="contained"
+                type="submit"
+                size="small"
+                style={{
+                  background: "#3371B5",
+                  color: "white",
+                  width: "20%",
+                  height: "20%",
+                }}
+                onClick={() => {
+                  setVisibility(true);
+                }}
+              >
+                PLACE ORDER
+              </Button>
+            ) : (
+              <Grid />
+            )}
           </Stack>
         </Grid>
         <Customerdetails visible={visible} setVisibility={setVisibility} />
       </Grid>
+      <AppBar />
     </Box>
   );
 };

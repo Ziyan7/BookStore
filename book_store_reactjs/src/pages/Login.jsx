@@ -5,12 +5,15 @@ import React, { useState } from "react";
 import validation from "../config/validation";
 import { login } from "../service/signUp.service";
 import {
+  Box,
   Grid,
   Paper,
   Link,
   TextField,
   Button,
   FormHelperText,
+  FormControlLabel,
+  Checkbox,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -23,7 +26,12 @@ const useStyles = makeStyles({
       color: "#A03037",
     },
   },
+  
+paperRoot: {
+  backgroundColor: 'red'
+}
 });
+
 const Login = () => {
   const classes = useStyles();
   const [UserName, setUserName] = useState("");
@@ -31,7 +39,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const emailHandler = (event) => {
     if (validation.email(event.target.value)) {
       setUserName(event.target.value);
@@ -92,8 +104,8 @@ const Login = () => {
   };
 
   return (
-    <Grid>
-      <Paper className="loginStyle">
+    <Grid >
+      <Paper elevation={5} className="loginStyle" >
         <h2 style={headerStyle}>BookStore</h2>
         <h2 style={subHeaderStyle}>Sign in</h2>
         <h3 style={subHeaderStyle}>Use your FundooNotes Account</h3>
@@ -119,7 +131,7 @@ const Login = () => {
                 label="Password"
                 variant="outlined"
                 size="small"
-                type="password"
+                 type={showPassword ? "text" : "password"}
                 id="password"
                 style={textStyle}
                 onChange={(event) => passwordHandler(event)}
@@ -129,11 +141,23 @@ const Login = () => {
                 {passwordError}
               </FormHelperText>
             </Grid>
-            <Grid style={{ paddingBottom: "20%" }}>
+            <Grid  >
+            <FormControlLabel
+             style={{ paddingLeft: "55px" }}
+              control={<Checkbox />}
+              label={
+                <Box component="div" fontSize={12} fontWeight={"bold"}>
+                   Show password
+                 </Box>
+           }
+              onClick={handleShowPassword}
+            />
+          </Grid>
+            <Grid style={{ paddingBottom: "16%" }}>
               <Link
                 component={Routing.Link}
                 to="/forgotpassword"
-                style={{ paddingLeft: "55px", color: "#A03037" }}
+                style={{ paddingLeft: "55px", color: "#A03037" , fontWeight : "600"}}
               >
                 Forgot Password?
               </Link>
@@ -142,7 +166,7 @@ const Login = () => {
           <Grid container spacing={9} justifyContent="center">
             <Grid item xs={6}>
               <Link
-                style={{ color: "#A03037" }}
+                style={{ color: "#A03037" , fontWeight : "600"}}
                 component={Routing.Link}
                 to="/"
                 // style={{ paddingLeft: "55px ", paddingRight: "85px " }}
@@ -152,6 +176,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={4}>
               <Button
+              size = "fixed"
                 type="submit"
                 variant="contained"
                 style={{ backgroundColor: "#A03037" }}
